@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christopher Kwo</title>
+<meta name="description" content="Entrepreneur in the Algarve. Building stuff, documenting what I learn, sharing what's useful.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf7f2;
+  --paper: #f4f0e8;
+  --ink: #1a1814;
+  --ink-light: #6b6560;
+  --ink-faint: #c4bfb8;
+  --coral: #e8614a;
+  --blue: #3b5bdb;
+  --yellow: #f5c842;
+  --green: #3aab6f;
+  --purple: #7c4dbd;
+  --orange: #f07d1a;
+  --border: #e2ddd6;
+  --r: 6px;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'Syne', sans-serif;
+  --mono: 'Azeret Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--yellow); color: var(--ink); }
+
+a { color: inherit; }
+
+/* ── NOISE TEXTURE overlay ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 1000;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 90;
+  background: var(--cream);
+  border-bottom: 1.5px solid var(--border);
+  padding: 0 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  font-family: var(--sans); font-weight: 800; font-size: 15px;
+  letter-spacing: -0.01em; text-decoration: none; color: var(--ink);
+}
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-right a {
+  font-size: 13px; font-weight: 500; color: var(--ink-light);
+  text-decoration: none; transition: color 0.15s;
+}
+.nav-right a:hover { color: var(--ink); }
+.nav-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); display: inline-block;
+  animation: pulse 2.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+.container-wide { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 0 64px;
+  border-bottom: 1.5px solid var(--border);
+}
+.hero-inner { max-width: 860px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: start; }
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px;
+  background: var(--yellow); color: var(--ink);
+  padding: 5px 12px; border-radius: 100px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(48px, 6vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.hero h1 em { font-style: italic; }
+.hero-desc {
+  font-size: 17px; color: var(--ink-light);
+  max-width: 480px; line-height: 1.65; margin-bottom: 32px;
+}
+.hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.pill {
+  display: inline-block;
+  padding: 8px 18px; border-radius: 100px;
+  font-size: 13px; font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid var(--ink);
+  transition: all 0.15s;
+}
+.pill:hover { background: var(--ink); color: var(--cream); }
+.pill.filled { background: var(--ink); color: var(--cream); }
+.pill.filled:hover { background: var(--coral); border-color: var(--coral); }
+
+.hero-photo {
+  width: 160px; height: 200px;
+  background: var(--paper);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transform: rotate(2deg);
+  flex-shrink: 0;
+  position: relative;
+}
+.hero-photo-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+  background: linear-gradient(135deg, #fde8e4, #dce8ff);
+}
+.photo-caption {
+  font-family: var(--mono); font-size: 10px; color: var(--ink-faint);
+  text-align: center; margin-top: 8px;
+  transform: rotate(2deg);
+}
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  display: flex; align-items: center; gap: 16px;
+  padding: 40px 0 32px;
+}
+.section-divider-label {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--ink-faint); white-space: nowrap;
+}
+.section-divider-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ── WHAT I'M DOING ── */
+.intro-section { padding: 64px 0; border-bottom: 1.5px solid var(--border); }
+.intro-text {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.5; max-width: 700px;
+  margin-bottom: 32px;
+}
+.intro-text em { font-style: italic; }
+.intro-note {
+  background: var(--paper);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 24px;
+  font-size: 15px; color: var(--ink-light);
+  max-width: 560px;
+  position: relative;
+}
+.intro-note::before {
+  content: '✏️';
+  position: absolute; top: -12px; left: 20px;
+  font-size: 18px;
+}
+
+/* ── PROJECTS ── */
+.projects-section { padding: 64px 0; border-bottom: 1.5px solid var(--border); }
+.projects-title {
+  font-family: var(--serif); font-size: 38px;
+  margin-bottom: 8px; line-height: 1.2;
+}
+.projects-sub { color: var(--ink-light); font-size: 15px; margin-bottom: 40px; }
+
+.projects-list { display: flex; flex-direction: column; gap: 16px; }
+
+.project-row {
+  display: grid; grid-template-columns: 56px 1fr auto;
+  gap: 0; align-items: stretch;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  text-decoration: none; color: var(--ink);
+  overflow: hidden;
+}
+.project-row:hover {
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.project-color-bar {
+  width: 56px;
+  flex-shrink: 0;
+}
+.project-body { padding: 20px 24px; }
+.project-name {
+  font-family: var(--sans); font-weight: 700; font-size: 17px;
+  margin-bottom: 4px;
+}
+.project-desc { font-size: 14px; color: var(--ink-light); line-height: 1.5; }
+.project-tags { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.project-tag {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em;
+  padding: 3px 8px; border-radius: 3px;
+  background: var(--paper); color: var(--ink-light);
+  border: 1px solid var(--border);
+}
+.project-arrow {
+  padding: 20px 20px 20px 0;
+  display: flex; align-items: center;
+  font-size: 18px; color: var(--ink-faint);
+  transition: color 0.15s, transform 0.15s;
+}
+.project-row:hover .project-arrow { color: var(--ink); transform: translateX(3px); }
+
+/* ── BUSINESS LOOP ── */
+.loop-section { padding: 64px 0; border-bottom: 1.5px solid var(--border); }
+.loop-section h2 { font-family: var(--serif); font-size: 38px; margin-bottom: 8px; }
+.loop-section p { color: var(--ink-light); font-size: 15px; margin-bottom: 40px; max-width: 480px; }
+
+.loop-wrapper {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+}
+.loop-svg-container { position: relative; width: 100%; max-width: 420px; }
+.loop-explain { }
+.loop-step {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 16px 0; border-bottom: 1px solid var(--border);
+}
+.loop-step:last-child { border-bottom: none; }
+.loop-step-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0; border: 1.5px solid transparent;
+}
+.loop-step-body h4 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.loop-step-body p { font-size: 13px; color: var(--ink-light); }
+
+/* ── BLOG / NOTES ── */
+.blog-section { padding: 64px 0; border-bottom: 1.5px solid var(--border); }
+.blog-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px; }
+.blog-header h2 { font-family: var(--serif); font-size: 38px; }
+.blog-header a { font-size: 13px; color: var(--ink-light); text-decoration: underline; }
+.blog-header a:hover { color: var(--ink); }
+
+.blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.blog-card {
+  background: white; border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 24px;
+  text-decoration: none; color: var(--ink);
+  display: flex; flex-direction: column;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+.blog-card:hover { border-color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+.blog-card.featured { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+.blog-card-emoji { font-size: 32px; margin-bottom: 16px; }
+.blog-card-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-faint);
+  margin-bottom: 8px;
+}
+.blog-card h3 { font-family: var(--serif); font-size: 22px; line-height: 1.25; margin-bottom: 8px; }
+.blog-card p { font-size: 14px; color: var(--ink-light); line-height: 1.6; flex: 1; }
+.blog-card-meta {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
+  margin-top: 16px;
+}
+
+.blog-card-image {
+  background: linear-gradient(135deg, var(--paper), var(--border));
+  border-radius: 4px;
+  min-height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px;
+}
+
+/* sketch / meme card */
+.blog-card.sketch {
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+.blog-card.sketch:hover { border-color: var(--ink); }
+.blog-card.coral { background: #fef0ed; }
+.blog-card.blue-light { background: #eef1fd; }
+.blog-card.green-light { background: #edfaf3; }
+
+/* ── MEDIA MENTIONS ── */
+.media-section { padding: 64px 0; border-bottom: 1.5px solid var(--border); }
+.media-section h2 { font-family: var(--serif); font-size: 38px; margin-bottom: 6px; }
+.media-section .sub { color: var(--ink-light); font-size: 15px; margin-bottom: 40px; }
+
+.media-list { display: flex; flex-direction: column; gap: 1px; }
+.media-row {
+  display: flex; align-items: center; gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none; color: var(--ink);
+  transition: color 0.15s;
+}
+.media-row:last-child { border-bottom: none; }
+.media-row:hover { color: var(--coral); }
+.media-row:hover .media-title { text-decoration: underline; }
+.media-source {
+  font-family: var(--mono); font-size: 11px;
+  width: 120px; flex-shrink: 0; color: var(--ink-faint);
+}
+.media-title { font-size: 16px; font-weight: 600; flex: 1; }
+.media-arrow { color: var(--ink-faint); font-size: 16px; }
+
+/* ── HONEST SECTION ── */
+.honest-section { padding: 64px 0; border-bottom: 1.5px solid var(--border); }
+.honest-section h2 { font-family: var(--serif); font-size: 38px; margin-bottom: 6px; }
+.honest-section .sub { color: var(--ink-light); font-size: 15px; margin-bottom: 40px; }
+
+.honest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.honest-card {
+  background: var(--paper); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 24px;
+}
+.honest-emoji { font-size: 28px; margin-bottom: 12px; }
+.honest-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.honest-card p { font-size: 13px; color: var(--ink-light); line-height: 1.6; }
+.honest-status {
+  display: inline-block; margin-top: 12px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+  padding: 3px 10px; border-radius: 100px;
+}
+.s-learned { background: #dcfce7; color: #166534; }
+.s-hold { background: #fef9c3; color: #854d0e; }
+.s-closed { background: #fee2e2; color: #991b1b; }
+
+/* ── CONTACT ── */
+.contact-section { padding: 80px 0; }
+.contact-inner {
+  background: var(--ink); color: var(--cream);
+  border-radius: 12px; padding: 56px 48px;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 48px; align-items: center;
+}
+.contact-inner h2 { font-family: var(--serif); font-size: 40px; line-height: 1.2; margin-bottom: 12px; }
+.contact-inner h2 em { font-style: italic; }
+.contact-inner p { color: rgba(250,247,242,0.6); font-size: 15px; }
+.contact-actions { display: flex; flex-direction: column; gap: 12px; }
+.btn-white {
+  display: inline-block; background: var(--cream); color: var(--ink);
+  padding: 12px 24px; border-radius: 100px;
+  font-size: 14px; font-weight: 700; text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.btn-white:hover { background: var(--yellow); }
+.btn-outline-white {
+  display: inline-block; background: transparent; color: var(--cream);
+  border: 1.5px solid rgba(250,247,242,0.3);
+  padding: 12px 24px; border-radius: 100px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.15s;
+}
+.btn-outline-white:hover { border-color: var(--cream); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1.5px solid var(--border);
+  padding: 28px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(26,24,20,0.7);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 48px 24px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s;
+  overflow-y: auto;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--cream); border: 1.5px solid var(--border);
+  border-radius: 10px; max-width: 680px; width: 100%;
+  padding: 48px;
+  transform: translateY(20px);
+  transition: transform 0.25s;
+  position: relative;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-close {
+  position: absolute; top: 20px; right: 20px;
+  background: var(--paper); border: 1.5px solid var(--border);
+  border-radius: 50%; width: 36px; height: 36px;
+  cursor: pointer; font-size: 16px; color: var(--ink-light);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.modal-color-strip {
+  height: 6px; border-radius: 100px;
+  margin-bottom: 32px;
+}
+.modal-eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px;
+}
+.modal h2 { font-family: var(--serif); font-size: clamp(26px, 4vw, 38px); line-height: 1.15; margin-bottom: 8px; }
+.modal .modal-sub { color: var(--ink-light); font-size: 16px; margin-bottom: 32px; line-height: 1.6; }
+.modal hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.modal-section { margin-bottom: 28px; }
+.modal-section h3 { font-family: var(--sans); font-weight: 700; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; color: var(--ink-light); }
+.modal-section p { font-size: 15px; color: var(--ink); line-height: 1.75; margin-bottom: 10px; }
+.modal-section ul { list-style: none; }
+.modal-section ul li { font-size: 14px; color: var(--ink-light); padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; }
+.modal-section ul li::before { content: '—'; color: var(--ink-faint); flex-shrink: 0; }
+.lesson-box {
+  background: var(--paper); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 20px 22px; margin-top: 8px;
+}
+.lesson-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+.lesson-box p { font-size: 14px; color: var(--ink); line-height: 1.7; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .container, .container-wide { padding: 0 20px; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-photo { display: none; }
+  .loop-wrapper { grid-template-columns: 1fr; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-card.featured { grid-column: span 1; display: flex; flex-direction: column; }
+  .honest-grid { grid-template-columns: 1fr; }
+  .contact-inner { grid-template-columns: 1fr; }
+  .media-source { width: 80px; }
+  .modal { padding: 28px 20px; }
+}
+
+/* fade in */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s, transform 0.6s; }
+.reveal.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#top" class="nav-logo">Christopher Kwo</a>
+  <div class="nav-right">
+    <a href="#projects">Projects</a>
+    <a href="#blog">Writing</a>
+    <a href="#contact">Contact</a>
+    <span class="nav-dot" title="Based in Algarve"></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">📍 Algarve, Portugal</div>
+      <h1>Hey, I'm<br><em>Christopher.</em></h1>
+      <p class="hero-desc">I run a few businesses, I'm building things in Portugal, and I write about what I actually learn along the way. No fluff, no LinkedIn energy.</p>
+      <div class="hero-links">
+        <a href="#projects" class="pill filled">What I'm working on</a>
+        <a href="#blog" class="pill">Notes & writing</a>
+        <a href="https://linkedin.com/in/christopher-kwo" target="_blank" class="pill">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div>
+      <div class="hero-photo">
+        <div class="hero-photo-placeholder">☀️</div>
+      </div>
+      <div class="photo-caption">Algarve, probably.</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro-section">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-divider-label">About</span>
+      <div class="section-divider-line"></div>
+    </div>
+    <p class="intro-text reveal">
+      I'm from Mauritius, studied hospitality in France, and ended up building businesses in Portugal. I run short-term rentals, import/export, an NFC tech franchise, an e-commerce brand, and a cleaning management app. They're all connected — even when they don't look like it.
+    </p>
+    <div class="intro-note reveal">
+      This site is where I document what I'm building and share things I find useful. Think of it as a slow blog, not a portfolio. Some posts will be detailed write-ups on how something works. Some will be a single observation I keep coming back to.
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-divider-label">Projects</span>
+      <div class="section-divider-line"></div>
+    </div>
+    <h2 class="projects-title reveal">What I'm working on.</h2>
+    <p class="projects-sub reveal">In no particular order of importance.</p>
+
+    <div class="projects-list">
+
+      <div class="project-row reveal" onclick="openModal('str')">
+        <div class="project-color-bar" style="background:#3aab6f;"></div>
+        <div class="project-body">
+          <div class="project-name">Short-Term Rentals · Algarve</div>
+          <div class="project-desc">Two apartments in the Algarve region. The thing that started everything. I manage them with a system I built myself.</div>
+          <div class="project-tags">
+            <span class="project-tag">Real estate</span>
+            <span class="project-tag">Airbnb</span>
+            <span class="project-tag">Portugal</span>
+          </div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-row reveal" onclick="openModal('ps-import')">
+        <div class="project-color-bar" style="background:#3b5bdb;"></div>
+        <div class="project-body">
+          <div class="project-name">Permanent Summer · Import/Export</div>
+          <div class="project-desc">UV protection nets and safety flooring. B2B, European markets. The invisible business that nobody asks about.</div>
+          <div class="project-tags">
+            <span class="project-tag">B2B</span>
+            <span class="project-tag">Import/export</span>
+            <span class="project-tag">Europe</span>
+          </div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-row reveal" onclick="openModal('tapni')">
+        <div class="project-color-bar" style="background:#e8614a;"></div>
+        <div class="project-body">
+          <div class="project-name">Tapni · Franchise Owner</div>
+          <div class="project-desc">NFC digital business cards. I have the franchise for France and Mauritius. Started as an employee, now I own the territory.</div>
+          <div class="project-tags">
+            <span class="project-tag">NFC</span>
+            <span class="project-tag">Franchise</span>
+            <span class="project-tag">France & Mauritius</span>
+          </div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-row reveal" onclick="openModal('summerclean')">
+        <div class="project-color-bar" style="background:#f5c842;"></div>
+        <div class="project-body">
+          <div class="project-name">SummerClean · App</div>
+          <div class="project-desc">Built it to manage my own rental turnovers. It worked well enough that I opened it to other operators. Still running.</div>
+          <div class="project-tags">
+            <span class="project-tag">SaaS</span>
+            <span class="project-tag">STR</span>
+            <span class="project-tag">cleaning.permanentsummer.co</span>
+          </div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-row reveal" onclick="openModal('coeur')">
+        <div class="project-color-bar" style="background:#7c4dbd;"></div>
+        <div class="project-body">
+          <div class="project-name">Cœur Salé · E-commerce</div>
+          <div class="project-desc">Organic cotton clothing brand. Everything in-house: product, photos, packaging, customer communication. Different kind of project.</div>
+          <div class="project-tags">
+            <span class="project-tag">E-commerce</span>
+            <span class="project-tag">Fashion</span>
+            <span class="project-tag">DTC</span>
+          </div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS LOOP -->
+<section class="loop-section">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-divider-label">The system</span>
+      <div class="section-divider-line"></div>
+    </div>
+    <h2 class="reveal">How they all connect.</h2>
+    <p class="reveal">This took me a while to see clearly. Nothing is random.</p>
+
+    <div class="loop-wrapper">
+      <div class="loop-svg-container reveal">
+        <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+          <!-- background -->
+          <rect width="420" height="420" rx="12" fill="#f4f0e8" stroke="#e2ddd6" stroke-width="1.5"/>
+
+          <!-- orbit ring -->
+          <circle cx="210" cy="210" r="148" fill="none" stroke="#e2ddd6" stroke-width="1.5" stroke-dasharray="6 6"/>
+
+          <!-- animated dot on ring -->
+          <circle r="6" fill="#1a1814" opacity="0.6">
+            <animateMotion dur="8s" repeatCount="indefinite" path="M210,62 A148,148 0 1,1 209.9,62"/>
+          </circle>
+
+          <!-- center -->
+          <circle cx="210" cy="210" r="56" fill="white" stroke="#e2ddd6" stroke-width="1.5"/>
+          <text x="210" y="205" text-anchor="middle" font-family="'Instrument Serif', serif" font-size="14" fill="#1a1814">Always</text>
+          <text x="210" y="223" text-anchor="middle" font-family="'Instrument Serif', serif" font-size="14" font-style="italic" fill="#1a1814">running</text>
+
+          <!-- nodes -->
+          <!-- INVEST top -->
+          <circle cx="210" cy="62" r="36" fill="#3b5bdb"/>
+          <text x="210" y="58" text-anchor="middle" font-family="'Azeret Mono', monospace" font-size="9.5" fill="white" letter-spacing="1">INVEST</text>
+          <text x="210" y="73" text-anchor="middle" font-family="'Syne', sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">capital + time</text>
+
+          <!-- BUILD right -->
+          <circle cx="358" cy="210" r="36" fill="#e8614a"/>
+          <text x="358" y="206" text-anchor="middle" font-family="'Azeret Mono', monospace" font-size="9.5" fill="white" letter-spacing="1">BUILD</text>
+          <text x="358" y="221" text-anchor="middle" font-family="'Syne', sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">systems</text>
+
+          <!-- EARN bottom-right -->
+          <circle cx="306" cy="336" r="36" fill="#3aab6f"/>
+          <text x="306" y="332" text-anchor="middle" font-family="'Azeret Mono', monospace" font-size="9.5" fill="white" letter-spacing="1">EARN</text>
+          <text x="306" y="347" text-anchor="middle" font-family="'Syne', sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">cash flow</text>
+
+          <!-- IMPROVE bottom-left -->
+          <circle cx="114" cy="336" r="36" fill="#f5c842"/>
+          <text x="114" y="332" text-anchor="middle" font-family="'Azeret Mono', monospace" font-size="9.5" fill="#1a1814" letter-spacing="1">IMPROVE</text>
+          <text x="114" y="347" text-anchor="middle" font-family="'Syne', sans-serif" font-size="9" fill="rgba(26,24,20,0.6)">iterate</text>
+
+          <!-- REINVEST left -->
+          <circle cx="62" cy="210" r="36" fill="#7c4dbd"/>
+          <text x="62" y="206" text-anchor="middle" font-family="'Azeret Mono', monospace" font-size="8" fill="white" letter-spacing="0.5">REINVEST</text>
+          <text x="62" y="221" text-anchor="middle" font-family="'Syne', sans-serif" font-size="9" fill="rgba(255,255,255,0.7)">loop back</text>
+        </svg>
+      </div>
+
+      <div class="loop-explain reveal">
+        <div class="loop-step">
+          <div class="loop-step-icon" style="background:#eef1fd; border-color:#3b5bdb;">💰</div>
+          <div class="loop-step-body">
+            <h4>Invest</h4>
+            <p>Capital and time go into the next thing. The rentals funded the import/export. That funded the brand.</p>
+          </div>
+        </div>
+        <div class="loop-step">
+          <div class="loop-step-icon" style="background:#fef0ed; border-color:#e8614a;">🔨</div>
+          <div class="loop-step-body">
+            <h4>Build</h4>
+            <p>Every business needed a system. SummerClean was built for the rentals. Then it became its own product.</p>
+          </div>
+        </div>
+        <div class="loop-step">
+          <div class="loop-step-icon" style="background:#edfaf3; border-color:#3aab6f;">📈</div>
+          <div class="loop-step-body">
+            <h4>Earn</h4>
+            <p>Rental income is steady. Import/export is project-based. Tapni is relational. Three different rhythms.</p>
+          </div>
+        </div>
+        <div class="loop-step">
+          <div class="loop-step-icon" style="background:#fefce8; border-color:#f5c842;">🔁</div>
+          <div class="loop-step-body">
+            <h4>Improve → Reinvest</h4>
+            <p>Fix what's broken. Keep what works. Put the surplus back in. This is the whole thing, repeated.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG / NOTES -->
+<section class="blog-section" id="blog">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-divider-label">Writing & notes</span>
+      <div class="section-divider-line"></div>
+    </div>
+    <div class="blog-header">
+      <h2 class="reveal">Things I've written.</h2>
+      <a href="#">All posts →</a>
+    </div>
+
+    <div class="blog-grid">
+
+      <!-- featured post -->
+      <div class="blog-card featured reveal" onclick="">
+        <div>
+          <div class="blog-card-label">Featured · Business</div>
+          <h3>Why my cleaning app became a product (accidentally)</h3>
+          <p>I built SummerClean in a weekend to stop missing rental turnovers. Two other operators adopted it without me even asking. Here's what that taught me about building tools vs. building businesses.</p>
+          <div class="blog-card-meta">2024 · 8 min read</div>
+        </div>
+        <div class="blog-card-image">🧹</div>
+      </div>
+
+      <!-- sketch/meme card -->
+      <div class="blog-card sketch reveal">
+        <div class="blog-card-emoji">✏️</div>
+        <div class="blog-card-label">Sketch</div>
+        <h3>A hand-drawn map of how my businesses feed each other</h3>
+        <p>Drew this on a napkin in 2023. Still the clearest explanation I have.</p>
+        <div class="blog-card-meta">Coming soon</div>
+      </div>
+
+      <div class="blog-card blue-light reveal" onclick="">
+        <div class="blog-card-emoji">🤝</div>
+        <div class="blog-card-label">Tapni · Franchise</div>
+        <h3>Going from employee to franchise owner — what nobody tells you</h3>
+        <p>The mindset shift is bigger than the contract. A few things I wish I'd known earlier.</p>
+        <div class="blog-card-meta">2023 · 6 min read</div>
+      </div>
+
+      <div class="blog-card green-light reveal" onclick="">
+        <div class="blog-card-emoji">🏠</div>
+        <div class="blog-card-label">STR · Operations</div>
+        <h3>The real cost of managing Airbnb properties manually</h3>
+        <p>Not the hosting fees. The WhatsApp chaos, the missed cleanings, the double-bookings. And how I systemised my way out of it.</p>
+        <div class="blog-card-meta">2024 · 5 min read</div>
+      </div>
+
+      <div class="blog-card coral reveal">
+        <div class="blog-card-emoji">📦</div>
+        <div class="blog-card-label">Import/Export</div>
+        <h3>What B2B actually means when you're small</h3>
+        <p>It means you're one person writing emails in three languages hoping the client replies before the quote expires.</p>
+        <div class="blog-card-meta">Draft</div>
+      </div>
+
+      <div class="blog-card reveal" style="background:white;">
+        <div class="blog-card-emoji">💬</div>
+        <div class="blog-card-label">Observation</div>
+        <h3>The inbox-zero lie I tell myself every January</h3>
+        <p>A short post about systems, willpower, and why automation is the only honest answer.</p>
+        <div class="blog-card-meta">Coming soon</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA -->
+<section class="media-section" id="media">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-divider-label">Press & mentions</span>
+      <div class="section-divider-line"></div>
+    </div>
+    <h2 class="reveal">A few places I've shown up.</h2>
+    <p class="sub reveal">Not complaining.</p>
+
+    <div class="media-list">
+      <a href="https://www.lemauricien.com/actualites/societe/success-story-christopher-kwo-26-ans-entrepreneur-au-portugal/539557/" target="_blank" rel="noopener" class="media-row reveal">
+        <span class="media-source">Le Mauricien</span>
+        <span class="media-title">Success Story — Christopher Kwo, entrepreneur in Portugal (aged 26)</span>
+        <span class="media-arrow">↗</span>
+      </a>
+      <a href="https://www.linkedin.com/posts/vatel-france_cest-le-premier-mot-qui-me-vient-%C3%A0-lesprit-activity-7153705925797646336-u1qC" target="_blank" rel="noopener" class="media-row reveal">
+        <span class="media-source">Vatel France</span>
+        <span class="media-title">Alumni spotlight — from hospitality school to real operations</span>
+        <span class="media-arrow">↗</span>
+      </a>
+      <a href="https://www.linkedin.com/posts/christopher-kwo_managers-directors-entrepreneurs-activity-7122121988084568064-yPeY" target="_blank" rel="noopener" class="media-row reveal">
+        <span class="media-source">LinkedIn</span>
+        <span class="media-title">On the difference between managers, directors, and entrepreneurs</span>
+        <span class="media-arrow">↗</span>
+      </a>
+      <a href="https://www.linkedin.com/posts/christopher-kwo_nfc-numaezrique-innovation-activity-7092413714141741056-6--h" target="_blank" rel="noopener" class="media-row reveal">
+        <span class="media-source">LinkedIn</span>
+        <span class="media-title">NFC, digital cards, and what actually changes in a B2B environment</span>
+        <span class="media-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HONEST / EXPERIMENTS -->
+<section class="honest-section">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-divider-label">Honest inventory</span>
+      <div class="section-divider-line"></div>
+    </div>
+    <h2 class="reveal">Things that didn't work. Yet.</h2>
+    <p class="sub reveal">The drawer every business has.</p>
+
+    <div class="honest-grid">
+      <div class="honest-card reveal">
+        <div class="honest-emoji">📦</div>
+        <h4>Scaling import/export without a local partner</h4>
+        <p>Tried entering a new European market with no ground-level relationships. Good product, wrong approach. Pulled back.</p>
+        <span class="honest-status s-learned">Learned</span>
+      </div>
+      <div class="honest-card reveal">
+        <div class="honest-emoji">👕</div>
+        <h4>Running paid ads before figuring out the message</h4>
+        <p>For Cœur Salé — ran campaigns before the buyer profile was clear. Burned budget. Rebuilt from word-of-mouth.</p>
+        <span class="honest-status s-learned">Learned</span>
+      </div>
+      <div class="honest-card reveal">
+        <div class="honest-emoji">📱</div>
+        <h4>Overbuilding SummerClean v1</h4>
+        <p>First version had too many features. Built to impress, not to be used. Stripped it back and adoption tripled.</p>
+        <span class="honest-status s-learned">Rebuilt</span>
+      </div>
+      <div class="honest-card reveal">
+        <div class="honest-emoji">🏠</div>
+        <h4>The third apartment I almost bought</h4>
+        <p>Numbers worked. Operational load didn't. Passed on it. Still watching the market.</p>
+        <span class="honest-status s-hold">On hold</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+      <div>
+        <h2>Let's talk about <em>something real.</em></h2>
+        <p>Business stuff, collaboration, or if you're trying to figure out how one of these operations actually works.</p>
+      </div>
+      <div class="contact-actions">
+        <a href="https://www.linkedin.com/in/christopher-kwo" target="_blank" rel="noopener" class="btn-white">LinkedIn →</a>
+        <a href="mailto:hello@permanentsummer.co" class="btn-outline-white">Send an email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Christopher Kwo · Algarve, Portugal</span>
+  <span>Built & documented honestly.</span>
+</footer>
+
+<!-- ══════════ MODALS ══════════ -->
+
+<!-- STR -->
+<div class="modal-overlay" id="modal-str">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('str')">×</button>
+    <div class="modal-color-strip" style="background:linear-gradient(90deg,#3aab6f,#a8e6c4)"></div>
+    <div class="modal-eyebrow">Since 2021 · Algarve, Portugal</div>
+    <h2>Short-Term Rentals</h2>
+    <p class="modal-sub">Two apartments. The first real business. The one that forced me to build everything else.</p>
+    <hr>
+    <div class="modal-section">
+      <h3>How it started</h3>
+      <p>Moved to Portugal, saw the Algarve market was strong, acquired the first apartment. Everything that followed — the cleaning app, the automation setup, the pricing system — was built because of what broke first.</p>
+    </div>
+    <div class="modal-section">
+      <h3>How it runs today</h3>
+      <ul>
+        <li>Two properties, Algarve region</li>
+        <li>Airbnb + Booking.com, synced via Make.com and Google Calendar</li>
+        <li>Cleaning coordination through SummerClean (the app I built)</li>
+        <li>WhatsApp alerts fire automatically on booking triggers</li>
+        <li>Trilingual guest communication — Portuguese, English, French</li>
+        <li>Pricing reviewed weekly, not set-and-forget</li>
+      </ul>
+    </div>
+    <div class="modal-section">
+      <h3>Why it matters beyond the income</h3>
+      <p>Rental income is the base that makes everything else possible. But more than that — this business generated SummerClean as a by-product. Problems that needed to be solved became products. That pattern has repeated across the businesses.</p>
+    </div>
+    <div class="lesson-box">
+      <div class="lesson-label">The thing I kept learning</div>
+      <p>A well-run average property beats a poorly-run premium one. The asset matters less than the system around it. Build the system first.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Import/Export -->
+<div class="modal-overlay" id="modal-ps-import">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('ps-import')">×</button>
+    <div class="modal-color-strip" style="background:linear-gradient(90deg,#3b5bdb,#a5b4fc)"></div>
+    <div class="modal-eyebrow">Since 2022 · B2B · Europe</div>
+    <h2>Permanent Summer<br>Import/Export</h2>
+    <p class="modal-sub">UV protection nets and safety flooring. The business nobody asks about until they need exactly that.</p>
+    <hr>
+    <div class="modal-section">
+      <h3>What it is</h3>
+      <p>B2B distribution of AUSTRONET 204 UV protection nets (agricultural markets) and safety flooring for playgrounds and outdoor installations. No storefront. All relationships. Sales cycles are long, contracts are real.</p>
+    </div>
+    <div class="modal-section">
+      <h3>The operation</h3>
+      <ul>
+        <li>Sourced from Austrian manufacturing partners</li>
+        <li>Clients across Portugal, France, broader EU</li>
+        <li>Agricultural buyers, playground contractors, landscape architects</li>
+        <li>Quotes coordinated in English, French, and Portuguese</li>
+        <li>All supply relationships direct — no intermediaries</li>
+      </ul>
+    </div>
+    <div class="modal-section">
+      <h3>Why B2B only, always</h3>
+      <p>Consumer retail needs infrastructure that would dilute everything. B2B means fewer, bigger relationships. Each one matters more. That's where I want to spend the energy.</p>
+    </div>
+    <div class="lesson-box">
+      <div class="lesson-label">What took the longest to understand</div>
+      <p>In B2B, the relationship is the product. You can have the best net on the market — if the client doesn't trust your delivery, they won't buy. The first six months were almost entirely about earning trust with no track record. Nobody tells you how long that actually takes.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Tapni -->
+<div class="modal-overlay" id="modal-tapni">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('tapni')">×</button>
+    <div class="modal-color-strip" style="background:linear-gradient(90deg,#e8614a,#fca89a)"></div>
+    <div class="modal-eyebrow">Since 2022 · France & Mauritius</div>
+    <h2>Tapni</h2>
+    <p class="modal-sub">NFC digital business cards. Started as Head of Sales. Now franchise owner for France and Mauritius.</p>
+    <hr>
+    <div class="modal-section">
+      <h3>What Tapni is</h3>
+      <p>Tap a card against any smartphone — your full contact profile, links, social accounts transfer instantly. No app required. The product is real and the category is early, which is exactly when it's interesting.</p>
+    </div>
+    <div class="modal-section">
+      <h3>The transition</h3>
+      <p>Joined early as Head of Sales. Built B2B pipelines from scratch for a product most buyers had never seen. Then acquired the franchise for France and Mauritius — two very different markets that require two different approaches.</p>
+      <ul>
+        <li>France: enterprise B2B, corporate networking culture, conference distribution</li>
+        <li>Mauritius: relationship-driven, existing local network, personal credibility</li>
+        <li>Franchise model: territorial exclusivity, operational independence</li>
+      </ul>
+    </div>
+    <div class="modal-section">
+      <h3>What's different as an owner</h3>
+      <p>As Head of Sales the goal was moving product. As franchise owner the goal is building a sustainable local operation. Different problem set entirely. The mindset shift took longer than the contract paperwork.</p>
+    </div>
+    <div class="lesson-box">
+      <div class="lesson-label">The thing that transfers to everything</div>
+      <p>Selling something nobody's heard of is a skill. Every new business has this problem — you know the value, the buyer doesn't yet. The answer is always the same: one tap converts better than a ten-slide deck. Make the demo obvious.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SummerClean -->
+<div class="modal-overlay" id="modal-summerclean">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('summerclean')">×</button>
+    <div class="modal-color-strip" style="background:linear-gradient(90deg,#f5c842,#fde68a)"></div>
+    <div class="modal-eyebrow">Since 2024 · cleaning.permanentsummer.co</div>
+    <h2>SummerClean</h2>
+    <p class="modal-sub">Built to solve a real problem I had. Then other people had the same problem.</p>
+    <hr>
+    <div class="modal-section">
+      <h3>The problem</h3>
+      <p>Coordinating cleaning across rental properties is messier than it sounds. WhatsApp groups don't scale. Shared calendars don't alert anyone. A cleaner shows up to the wrong apartment, a checkout gets missed — these aren't hypothetical problems.</p>
+    </div>
+    <div class="modal-section">
+      <h3>How it's built</h3>
+      <p>Single-file HTML/CSS/JS. Pulls from Google Sheets via CSV. Make.com handles the automation layer — iCal imports from Airbnb and Booking.com sync through Google Calendar into the data source.</p>
+      <ul>
+        <li>PIN-protected admin mode — cleaner view vs manager view</li>
+        <li>WhatsApp alerts via CallMeBot on booking triggers</li>
+        <li>List view + calendar view</li>
+        <li>Trilingual: Portuguese, English, French</li>
+        <li>Fully mobile-optimised</li>
+      </ul>
+    </div>
+    <div class="modal-section">
+      <h3>How it became a product</h3>
+      <p>Two other operators adopted it without me pitching it. That was the signal. Cleaned up the code, added documentation, made it available as a standalone tool.</p>
+      <p>Version 1 had too many features. Stripped it back to the core workflow and adoption tripled among cleaning staff. Classic lesson, learned the hard way.</p>
+    </div>
+    <div class="lesson-box">
+      <div class="lesson-label">What I keep thinking about</div>
+      <p>Build for the real user, not the imagined one. The cleaning staff needed one screen, one clear piece of information. Not a dashboard. A checklist. Knowing the difference is the whole product job.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Cœur Salé -->
+<div class="modal-overlay" id="modal-coeur">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('coeur')">×</button>
+    <div class="modal-color-strip" style="background:linear-gradient(90deg,#7c4dbd,#c4b5fd)"></div>
+    <div class="modal-eyebrow">Since 2023 · E-commerce · DTC</div>
+    <h2>Cœur Salé</h2>
+    <p class="modal-sub">Organic cotton clothing brand. Everything in-house. A different kind of project from everything else.</p>
+    <hr>
+    <div class="modal-section">
+      <h3>Where it came from</h3>
+      <p>The Algarve has a strong aesthetic — salt, sun, coast, nothing rushed. Cœur Salé ("salty heart") was built around that. Organic cotton wasn't a marketing decision; it was a product quality one. Cheaper materials produce cheaper experiences.</p>
+    </div>
+    <div class="modal-section">
+      <h3>What "in-house" actually means</h3>
+      <ul>
+        <li>Product design and sourcing</li>
+        <li>Photography — location-shot, all original</li>
+        <li>AI-powered embroidery personalisation system</li>
+        <li>Packaging design</li>
+        <li>Website (GitHub Pages + Cloudflare)</li>
+        <li>Customer communication, fulfilment, post-purchase</li>
+      </ul>
+      <p style="margin-top:12px;">The early-stage cost of doing it all yourself is high in time. The result is a brand with actual coherence.</p>
+    </div>
+    <div class="modal-section">
+      <h3>What didn't work</h3>
+      <p>Ran paid ads before the buyer profile was clear. Burned budget. Paused, gathered feedback, rebuilt from word-of-mouth. Also spent a week debugging a Cloudflare CDN issue that was corrupting HTML files on deploy. Unglamorous. Solved it with atomic file writes in Python.</p>
+    </div>
+    <div class="lesson-box">
+      <div class="lesson-label">The honest version</div>
+      <p>E-commerce before customer insight is expensive guesswork. Know why the first ten customers bought before spending on the next thousand. Word-of-mouth retention beats paid traffic retention every time.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// MODALS
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => {
+    if (e.target === o) { o.classList.remove('open'); document.body.style.overflow = ''; }
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    document.body.style.overflow = '';
+  }
+});
+
+// REVEAL ON SCROLL
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
